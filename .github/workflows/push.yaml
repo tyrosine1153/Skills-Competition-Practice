@@ -1,0 +1,13 @@
+name: "units-test"
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      
+      - uses: actions/checkout@v2
+      - uses: Somfic/cleanupcode-action@1.1.1
+        with:
+          solution: ./Example1/Example1.sln
