@@ -14,7 +14,7 @@ jobs:
         uses: florius0/resharper-ci@v0.2.1
         id: test
         with:
-          solution: "./TestSolution/TestSolution.sln"
+          solution: "./Example1/Example1.sln"
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
