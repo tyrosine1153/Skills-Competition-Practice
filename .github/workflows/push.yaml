@@ -1,32 +1,24 @@
-name: "units-test"
-on: push
+name: SelfTest
+
+on:
+  push:
+  
 jobs:
-  test:
+  self-test:
     runs-on: ubuntu-latest
+    name: Self Test
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v2
-      
-      - uses: actions/checkout@v2
-      - uses: Somfic/cleanupcode-action@1.1.1
+      - name: Test
+        uses: florius0/resharper-ci@v0.2.1
+        id: test
         with:
-          solution: ./Example1/Example1.sln
-
-      - name: Check for modified files
-        id: git-check
-        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
-      
-      - name: Commit changes
-        if: steps.git-check.outputs.modified == 'true'
-        run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -a -m 'Automated dotnet-format update
-          Co-authored-by: ${{ github.event.pull_request.user.login }} <${{ github.event.pull_request.user.id }}+${{ github.event.pull_request.user.login }}@users.noreply.github.com>'
-
-      - name: Push changes
-        if: steps.git-check.outputs.modified == 'true'
-        uses: ad-m/github-push-action@v0.5.0
+          solution: "./TestSolution/TestSolution.sln"
+      - name: Upload
+        uses: actions/upload-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
+          name: resharper-inspection
+          path: |
+            inspection.xml
+            inspection.txt
