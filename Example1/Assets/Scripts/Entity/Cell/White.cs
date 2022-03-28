@@ -6,7 +6,7 @@
         private void Reset()
         {
             maxHp = 1;
-            hp = maxHp;
+            currentHp = maxHp;
         }
 
         public override void Move()

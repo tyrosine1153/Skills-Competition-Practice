@@ -9,13 +9,19 @@ namespace Entity
     {
         public bool[] buffs = new bool[Enum.GetValues(typeof(PlayerBuff)).Length];
         private const int MAXWeaponLevel = 5;
-        public int weaponLevel = 1;
-
+        private const int MINWeaponLevel = 1;
+        public int weaponLevel = MINWeaponLevel;
+        public int WeaponLevel
+        {
+            get => weaponLevel;
+            set => weaponLevel = Mathf.Clamp(value, MINWeaponLevel, MAXWeaponLevel);
+        }
+        
         // default
         private void Reset()
         {
             maxHp = 100;
-            hp = maxHp;
+            currentHp = maxHp;
             attack = 10;
             moveSpeed = 5;
             attackSpeed = 1;
@@ -82,18 +88,14 @@ namespace Entity
 
         public override void TakeDamage(int damage)
         {
-            if (buffs[(int)PlayerBuff.Nullity]) return;
-
-            hp -= damage;
-            if (hp < 0)
-            {
-                Die();
-            }
+            if(buffs[(int)PlayerBuff.Nullity]) return;
+            
+            currentHp -= damage;
         }
 
         public void Heal(int amount)
         {
-            hp = Math.Min(hp + amount, maxHp);
+            currentHp = Math.Min(currentHp + amount, maxHp);
         }
 
         public void GetItem(Item item)
