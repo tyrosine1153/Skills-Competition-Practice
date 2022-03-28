@@ -6,7 +6,7 @@
         private void Reset()
         {
             maxHp = 100;
-            currentHp = maxHp;
+            hp = maxHp;
             attack = 10;
             moveSpeed = 10;
             attackSpeed = 10;

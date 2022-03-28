@@ -3,26 +3,9 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
-    #region Pains Managing
-
     public int startPain;
-    private int currentPain;
-
-    public int CurrentPain
-    {
-        get => currentPain;
-        set
-        {
-            currentPain = Mathf.Max(value, MINPain);
-            if (currentPain >= MAXPain)
-            {
-                currentPain = MAXPain;
-                GameManager.Instance.GameOver();
-            }
-        }
-    }
-
-    public const int MAXPain = 100;
+    public int currentPain;
+    private const int MAXPain = 100;
     private const int MINPain = 0;
 
     private void Start()
@@ -32,28 +15,17 @@ public class Stage : MonoBehaviour
 
     public void Heal(int amount)
     {
-        currentPain -= amount;
+        currentPain = Math.Max(currentPain - amount, MINPain);
         // UI
     }
 
     public void Hurt(int amount)
     {
-        currentPain += amount;
+        currentPain = Math.Min(currentPain + amount, MAXPain);
+        if (currentPain >= MAXPain)
+        {
+            GameManager.Instance.GameOver();
+        }
         // UI
     }
-
-    #endregion
-
-    #region Objects Spawning
-    
-    public void SpawnWhiteCell()
-    {
-        
-    }
-    public void SpawnRedCell()
-    {
-        
-    }
-
-    #endregion
 }
