@@ -13,7 +13,7 @@
             bulletSpeed = 10;
             score = 10;
         }
-        
+
         public override void Move()
         {
         }

@@ -20,10 +20,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 
     public static bool IsInitialized
     {
-        get
-        {
-            return _instance != null;
-        }
+        get { return _instance != null; }
     }
 
     public static void Initialize()
@@ -32,6 +29,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
         {
             return;
         }
+
         lock (_syncRoot)
         {
             _instance = GameObject.FindObjectOfType<T>();
@@ -68,5 +66,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
         }
     }
 
-    protected virtual void OnAwake() { }
+    protected virtual void OnAwake()
+    {
+    }
 }

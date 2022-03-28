@@ -6,7 +6,7 @@
         public int moveSpeed;
         public int attackSpeed;
         public int bulletSpeed;
-        
+
         public abstract void Attack();
     }
 }

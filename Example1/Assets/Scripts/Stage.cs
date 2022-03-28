@@ -18,11 +18,11 @@ public class Stage : MonoBehaviour
         currentPain = Math.Max(currentPain - amount, MINPain);
         // UI
     }
-    
+
     public void Hurt(int amount)
     {
         currentPain = Math.Min(currentPain + amount, MAXPain);
-        if(currentPain >= MAXPain)
+        if (currentPain >= MAXPain)
         {
             GameManager.Instance.GameOver();
         }

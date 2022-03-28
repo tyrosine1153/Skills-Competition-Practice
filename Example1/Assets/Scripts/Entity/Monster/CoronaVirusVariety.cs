@@ -13,8 +13,9 @@
             bulletSpeed = 10;
             score = 10;
         }
-        
+
         #region Action
+
         public override void Move()
         {
         }
@@ -42,6 +43,7 @@
         public override void AttackMultiple()
         {
         }
+
         #endregion
     }
 }
