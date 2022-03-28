@@ -8,7 +8,7 @@ namespace Entity.Cell
         private void Reset()
         {
             maxHp = 1;
-            currentHp = maxHp;
+            hp = maxHp;
         }
 
         public override void Move()

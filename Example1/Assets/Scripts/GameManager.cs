@@ -1,16 +1,12 @@
-﻿using Entity;
-
-public class GameManager : Singleton<GameManager>
+﻿public class GameManager : Singleton<GameManager>
 {
-    public PlayerCharacter playerCharacter;
-    public Stage currentStage;
     public int currentStageNum;
+    public Stage currentStage;
     public int score;
 
-    protected override void OnAwake()
+    private void Start()
     {
         currentStage = FindObjectOfType<Stage>();
-        playerCharacter = FindObjectOfType<PlayerCharacter>();
     }
 
     private void Reset()
