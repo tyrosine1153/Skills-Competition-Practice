@@ -24,7 +24,7 @@ namespace Entity
 
         private void Update()
         {
-            if(Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
             {
                 Move();
             }
@@ -49,11 +49,9 @@ namespace Entity
             }
             else if (other.gameObject.CompareTag("Cell"))
             {
-                
             }
             else if (other.gameObject.CompareTag("Item"))
             {
-                
             }
         }
 
@@ -70,10 +68,11 @@ namespace Entity
         {
             // 대충 총알 발사
         }
-        
+
         public override void Move()
         {
-            transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed * Time.deltaTime);
+            transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed *
+                                Time.deltaTime);
         }
 
         public override void Die()
@@ -83,15 +82,15 @@ namespace Entity
 
         public override void TakeDamage(int damage)
         {
-            if(buffs[(int)PlayerBuff.Nullity]) return;
-            
+            if (buffs[(int)PlayerBuff.Nullity]) return;
+
             hp -= damage;
             if (hp < 0)
             {
                 Die();
             }
         }
-        
+
         public void Heal(int amount)
         {
             hp = Math.Min(hp + amount, maxHp);

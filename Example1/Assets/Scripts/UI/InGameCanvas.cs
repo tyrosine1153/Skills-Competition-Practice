@@ -15,7 +15,7 @@ namespace UI
             scoreText.text = "Score : " + GameManager.Instance.score;
             stageText.text = "Stage " + GameManager.Instance.currentStageNum;
         }
-        
+
         public void SwitchCheatPanel()
         {
             cheatPanel.SetActive(!cheatPanel.activeSelf);

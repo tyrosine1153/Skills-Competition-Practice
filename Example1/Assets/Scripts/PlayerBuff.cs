@@ -1,5 +1,4 @@
 ﻿public enum PlayerBuff
 {
-    Nullity,  // 무적
-    
+    Nullity, // 무적
 }
