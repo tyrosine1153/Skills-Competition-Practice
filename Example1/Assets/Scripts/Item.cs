@@ -1,20 +1,6 @@
-﻿public class Item : Entity.Entity
+﻿using UnityEngine;
+
+public class Item : MonoBehaviour
 {
     public ItemType itemType;
-    
-    // default
-    protected void Reset()
-    {
-        maxHp = 1;
-        currentHp = maxHp;
-    }
-    
-    public override void Move()
-    {
-        
-    }
-
-    public override void Die()
-    {
-    }
 }

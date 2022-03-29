@@ -8,9 +8,9 @@
             maxHp = 100;
             currentHp = maxHp;
             attack = 10;
-            moveSpeed = 1;
-            attackSpeed = 1;
-            bulletSpeed = 1;
+            moveSpeed = 10;
+            attackSpeed = 10;
+            bulletSpeed = 10;
             score = 10;
         }
 
