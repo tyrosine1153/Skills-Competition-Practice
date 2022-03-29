@@ -12,8 +12,9 @@ namespace UI
 
         private void Start()
         {
-            scoreText.text = "Score : " + GameManager.Instance.score;
-            stageText.text = "Stage " + GameManager.Instance.currentStageNum;
+            scoreText.text = "Score : " + GameManager.Instance.Score;
+            stageText.text = "Stage " + GameManager.Instance.CurrentStageNum;
+            painGauge.value = (float)GameManager.Instance.CurrentStage.CurrentPain / Stage.MAXPain;
         }
 
         public void SwitchCheatPanel()

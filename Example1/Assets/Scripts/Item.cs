@@ -1,7 +1,6 @@
-﻿public enum Item
+﻿using UnityEngine;
+
+public class Item : MonoBehaviour
 {
-    WeaponUpgrade,
-    NullityBuff,
-    HealPlayer,
-    HealBody,
+    public ItemType itemType;
 }

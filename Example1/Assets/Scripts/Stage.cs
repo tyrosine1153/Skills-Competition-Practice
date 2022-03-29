@@ -55,5 +55,15 @@ public class Stage : MonoBehaviour
         
     }
 
+    public void DeleteAllMonsters()
+    {
+        
+    }
+
     #endregion
+
+    public void EndStage()
+    {
+        
+    }
 }

@@ -4,5 +4,11 @@
     {
         public abstract void SummonMonster();
         public abstract void AttackMultiple();
+        
+        public override void Die()
+        {
+            base.Die();
+            GameManager.Instance.GameClear();
+        }
     }
 }

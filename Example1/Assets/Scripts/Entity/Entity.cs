@@ -22,6 +22,10 @@ namespace Entity
         
         public abstract void Move();
         public abstract void Die();
-        public abstract void TakeDamage(int damage);
+
+        public virtual void TakeDamage(int damage)
+        {
+            currentHp -= damage;
+        }
     }
 }

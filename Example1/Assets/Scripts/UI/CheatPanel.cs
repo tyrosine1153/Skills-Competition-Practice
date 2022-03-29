@@ -15,6 +15,7 @@ namespace UI
 
         [SerializeField] private Button nullityBuffButton;
         [SerializeField] private Text nullityBuffText;
+        [SerializeField] private Button deleteAllMonstersButton;
 
         [SerializeField] private Slider playerHpSlider;
         [SerializeField] private Text playerHpText;
@@ -31,36 +32,40 @@ namespace UI
             stage2Button.onClick.AddListener(() => { SceneManager.LoadScene(2); });
             weaponLevelDownButton.onClick.AddListener(() =>
             {
-                GameManager.Instance.playerCharacter.WeaponLevel--;
-                weaponLevelText.text = GameManager.Instance.playerCharacter.WeaponLevel.ToString();
+                GameManager.Instance.PlayerCharacter.WeaponLevel--;
+                weaponLevelText.text = GameManager.Instance.PlayerCharacter.WeaponLevel.ToString();
             });
             weaponLevelUpButton.onClick.AddListener(() =>
             {
-                GameManager.Instance.playerCharacter.WeaponLevel++;
-                weaponLevelText.text = GameManager.Instance.playerCharacter.WeaponLevel.ToString();
+                GameManager.Instance.PlayerCharacter.WeaponLevel++;
+                weaponLevelText.text = GameManager.Instance.PlayerCharacter.WeaponLevel.ToString();
             });
 
             nullityBuffButton.onClick.AddListener(() =>
             {
-                var buff = !GameManager.Instance.playerCharacter.buffs[(int) PlayerBuff.Nullity];
+                var buff = !GameManager.Instance.PlayerCharacter.buffs[(int) PlayerBuff.Nullity];
                 nullityBuffText.text = buff ? "유지" : "해체";
-                GameManager.Instance.playerCharacter.buffs[(int) PlayerBuff.Nullity] = buff;
+                GameManager.Instance.PlayerCharacter.buffs[(int) PlayerBuff.Nullity] = buff;
+            });
+            deleteAllMonstersButton.onClick.AddListener(() =>
+            {
+                GameManager.Instance.CurrentStage.DeleteAllMonsters();
             });
 
             playerHpSlider.onValueChanged.AddListener(value =>
             {
-                GameManager.Instance.playerCharacter.CurrentHp = (int) (GameManager.Instance.playerCharacter.maxHp * value);
-                playerHpText.text = GameManager.Instance.playerCharacter.CurrentHp.ToString();
+                GameManager.Instance.PlayerCharacter.CurrentHp = (int) (GameManager.Instance.PlayerCharacter.maxHp * value);
+                playerHpText.text = GameManager.Instance.PlayerCharacter.CurrentHp.ToString();
             });
 
             painSlider.onValueChanged.AddListener(value =>
             {
-                GameManager.Instance.currentStage.CurrentPain = (int) (Stage.MAXPain * value);
-                playerHpText.text = GameManager.Instance.currentStage.CurrentPain.ToString();
+                GameManager.Instance.CurrentStage.CurrentPain = (int) (Stage.MAXPain * value);
+                painText.text = GameManager.Instance.CurrentStage.CurrentPain.ToString();
             });
 
-            whiteCellSpawnButton.onClick.AddListener(() => { GameManager.Instance.currentStage.SpawnWhiteCell(); });
-            redCellSpawnButton.onClick.AddListener(() => { GameManager.Instance.currentStage.SpawnRedCell(); });
+            whiteCellSpawnButton.onClick.AddListener(() => { GameManager.Instance.CurrentStage.SpawnWhiteCell(); });
+            redCellSpawnButton.onClick.AddListener(() => { GameManager.Instance.CurrentStage.SpawnRedCell(); });
         }
     }
 }

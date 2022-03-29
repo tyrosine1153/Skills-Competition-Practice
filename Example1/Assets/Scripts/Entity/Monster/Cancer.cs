@@ -20,14 +20,6 @@ namespace Entity.Monster
         {
         }
 
-        public override void Die()
-        {
-        }
-
-        public override void TakeDamage(int damage)
-        {
-        }
-
         public override void Attack()
         {
         }

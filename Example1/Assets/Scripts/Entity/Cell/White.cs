@@ -15,10 +15,8 @@
 
         public override void Die()
         {
-        }
-
-        public override void TakeDamage(int damage)
-        {
+            // Todo: 아이템 랜덤 생성
+            // Todo: Delete cell
         }
     }
 }

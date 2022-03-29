@@ -28,6 +28,11 @@ namespace Entity
             bulletSpeed = 5;
         }
 
+        private void Start()
+        {
+            currentHp = maxHp;
+        }
+
         private void Update()
         {
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
@@ -51,13 +56,17 @@ namespace Entity
             if (other.gameObject.CompareTag("Monster"))
             {
                 var monster = other.gameObject.GetComponent<Monster.Monster>();
-                TakeDamage(monster.attack);
+                TakeDamage((int)(monster.attack * 0.5f));
             }
             else if (other.gameObject.CompareTag("Cell"))
             {
+                var cell = other.gameObject.GetComponent<Cell.Cell>();
+                cell.TakeDamage(attack);
             }
             else if (other.gameObject.CompareTag("Item"))
             {
+                var item = other.gameObject.GetComponent<Item>();
+                GetItem(item.itemType);
             }
         }
 
@@ -72,13 +81,13 @@ namespace Entity
 
         public override void Attack()
         {
-            // 대충 총알 발사
+            // Todo : 대충 총알 발사
         }
 
         public override void Move()
         {
-            transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed *
-                                Time.deltaTime);
+            transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
+                                * moveSpeed * Time.deltaTime);
         }
 
         public override void Die()
@@ -89,8 +98,8 @@ namespace Entity
         public override void TakeDamage(int damage)
         {
             if(buffs[(int)PlayerBuff.Nullity]) return;
-            
-            currentHp -= damage;
+            StartCoroutine(Buff(PlayerBuff.Nullity, 1.5f));
+            base.TakeDamage(damage);
         }
 
         public void Heal(int amount)
@@ -98,21 +107,21 @@ namespace Entity
             currentHp = Math.Min(currentHp + amount, maxHp);
         }
 
-        public void GetItem(Item item)
+        public void GetItem(ItemType itemType)
         {
-            switch (item)
+            switch (itemType)
             {
-                case Item.WeaponUpgrade:
+                case ItemType.WeaponUpgrade:
                     weaponLevel = Math.Min(weaponLevel + 1, MAXWeaponLevel);
                     break;
-                case Item.NullityBuff:
+                case ItemType.NullityBuff:
                     StartCoroutine(Buff(PlayerBuff.Nullity, 3f));
                     break;
-                case Item.HealPlayer:
+                case ItemType.HealPlayer:
                     Heal(20);
                     break;
-                case Item.HealBody:
-                    GameManager.Instance.currentStage.Heal(20);
+                case ItemType.HealBody:
+                    GameManager.Instance.CurrentStage.Heal(20);
                     break;
                 default:
                     break;
