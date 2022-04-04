@@ -53,19 +53,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        CurrentStageNum = 1;
-    }
-
-    private void Reset()
-    {
-        CurrentStageNum = 1;
-        Score = 0;
-    }
-
     #region GameFlow
 
     private bool _isGamePlaying = false;
@@ -127,7 +114,6 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
-        Debug.LogError("GameOver");
         GameEnd(false);
     }
 
@@ -139,7 +125,6 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
-        CurrentStageNum++;
         GameEnd(true);
     }
 
