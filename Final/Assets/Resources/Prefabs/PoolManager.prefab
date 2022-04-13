@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &943880178252353982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 943880178252353980}
+  - component: {fileID: 943880178252353981}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &943880178252353980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943880178252353982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &943880178252353981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943880178252353982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5459fa4f2e0a4003870e659738e49968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  prefabList:
+  - {fileID: 5321641902256273623, guid: 1919451bfabb8b84baf9f0d08733a913, type: 3}
+  - {fileID: 357431056659684352, guid: e2a7ce898690052489c57b6c07a34eaa, type: 3}
+  - {fileID: 8390832946791766425, guid: abec2819d47264d4986833578f7a2dee, type: 3}
+  - {fileID: 2883233875395186074, guid: 996b00247887a064ba16c236696c7fe9, type: 3}
+  - {fileID: 8185390348663395177, guid: 8d78a388b2da8404a9ccef5e62a1c35d, type: 3}
+  - {fileID: 4863138351899790100, guid: b153e9948c469a8448c0cb463cb4f105, type: 3}
+  - {fileID: 3043135874165794658, guid: dcd5085ec1687c24fb2f89e6fcc2d142, type: 3}
+  - {fileID: 5834624472603401359, guid: 162dbe1e84812484ebd2472ac0e1ff5d, type: 3}
+  - {fileID: 6252533317444920653, guid: 6a824ffd73cb26c46904936563d31d43, type: 3}
+  - {fileID: 6594629804198132772, guid: fe7bd78e3fafb444a956db8acdacba59, type: 3}
+  - {fileID: 8401874482393153743, guid: d663fd938f5ade14eaa5d70661fa7210, type: 3}
