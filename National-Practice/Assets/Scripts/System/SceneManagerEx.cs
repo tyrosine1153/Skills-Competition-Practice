@@ -3,7 +3,9 @@ using UnityEngine.SceneManagement;
 public enum SceneType
 {
     // Define SceneType
-    Game
+    Main,
+    InGame,
+    End,
 }
 
 public class SceneManagerEx : Singleton<SceneManagerEx>

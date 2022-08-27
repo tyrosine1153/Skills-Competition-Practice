@@ -7,8 +7,9 @@ namespace UI
     {
         public Button startButton;
         public Button quitButton;
-        
         public Button helpButton;
+        
+        [Header("Help UI")]
         public Button helpCloseButton;
         public Button helpPrevButton;
         public Button helpNextButton;
@@ -20,7 +21,8 @@ namespace UI
             startButton.onClick.AddListener(() =>
             {
                 AudioManager.Instance.PlaySfx(SfxClip.ButtonClick);
-                SceneManagerEx.Instance.LoadScene(SceneType.Game);
+                GameManager.Instance.SaveData(0);
+                SceneManagerEx.Instance.LoadScene(SceneType.InGame);
             });
             quitButton.onClick.AddListener(() =>
             {
