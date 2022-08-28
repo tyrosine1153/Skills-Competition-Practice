@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UI;
 using UnityEngine;
@@ -45,6 +46,9 @@ public class GameManager : Singleton<GameManager>
         new (4, 6, 9),
     };
     // Todo : Define stage list
+    
+    public List<(string playerName, int score)> scoreRanking = new ();
+    // Todo : Score 값 관리
 
     #region Game Flow
 
@@ -151,9 +155,12 @@ public class GameManager : Singleton<GameManager>
         return savedStageId;
     }
 
-    private void UpdateScoreRank(string playerName, int score)
+    public void UpdateScoreRank(string playerName, int score)
     {
         // Todo : 저장해 두었던 점수 랭킹 가져와서 갱신하고 저장 + Json 입출력 기능 넣기
+        scoreRanking.Add((playerName, score));
+        scoreRanking.Sort((rank1, rank2) => rank1.score.CompareTo(rank2.score));
+        
         if (EndCanvas.IsInitialized)
         {
             EndCanvas.Instance.UpdateScoreRankBoard();

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,9 +9,14 @@ namespace UI
     {
         [SerializeField] private Button restartButton;
         [SerializeField] private Button mainButton;
+
+        [SerializeField] private TMP_InputField newRankSubmitInputField;
+        [SerializeField] private Button newRankSubmitButton;
         
         [SerializeField] private Transform cellContainer;
         [SerializeField] private RankCell rankCellPrefab;
+
+        private int cachedScore;
 
         private void Start()
         {
@@ -26,12 +32,27 @@ namespace UI
                 AudioManager.Instance.PlaySfx(SfxClip.ButtonClick);
                 SceneManagerEx.Instance.LoadScene(SceneType.Main);   
             });
+
+            newRankSubmitButton.onClick.AddListener(() =>
+            {
+                AudioManager.Instance.PlaySfx(SfxClip.ButtonClick);
+                GameManager.Instance.UpdateScoreRank(newRankSubmitInputField.text, cachedScore);
+            });
+
+            UpdateScoreRankBoard();
+        }
+
+        public void Set(bool isGameClear, int score)
+        {
+            // Todo : 텍스트 설정
+            cachedScore = score;
+            newRankSubmitInputField.gameObject.SetActive(isGameClear);
+            newRankSubmitButton.gameObject.SetActive(isGameClear);
         }
 
         public void UpdateScoreRankBoard()
         {
-            var rankList = new List<(string playerName, int score)>();
-            // Todo : rank 가져오기
+            var rankList = GameManager.Instance.scoreRanking;
 
             var cellList = cellContainer.GetComponentsInChildren<RankCell>();
             foreach (var cell in cellList)

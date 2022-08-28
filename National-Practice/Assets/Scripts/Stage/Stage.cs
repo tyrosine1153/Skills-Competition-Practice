@@ -69,7 +69,7 @@ public class Stage : Singleton<Stage>
     
     public void CountInputKey(KeyCode key)
     {
-        inputCounts[key]--;
+        inputCounts[key] = Mathf.Max(--inputCounts[key], 0);
         InGameCanvas.Instance.SetInputCount(LimitedInputs.IndexOf(key), inputCounts[key]);
         if (LimitedInputs.All(keyCode => inputCounts[keyCode] <= 0))
         {
