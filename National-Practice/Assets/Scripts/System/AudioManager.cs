@@ -57,11 +57,11 @@ public class AudioManager : Singleton<AudioManager>
 
         if (oneShot)
         {
-            sfxSource.PlayOneShot(sfxClips[(int)clip]);
+            // sfxSource.PlayOneShot(sfxClips[(int)clip]);
         }
         else if (!sfxSource.isPlaying)
         {
-            sfxSource.clip = sfxClips[(int)clip];
+            // sfxSource.clip = sfxClips[(int)clip];
             sfxSource.Play();
         }
     }

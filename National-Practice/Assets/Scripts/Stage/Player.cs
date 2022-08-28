@@ -23,9 +23,12 @@ public class Player : MonoBehaviour
         Move();
         Jump();
 
-        foreach (var key in Stage.LimitedInputs.Where(Input.GetKeyUp))
+        foreach (var key in Stage.LimitedInputs)
         {
-            Stage.Instance.CountInputKey(key);
+            if (Input.GetKeyUp(key))
+            {
+                Stage.Instance.CountInputKey(key);
+            }
         }
     }
 

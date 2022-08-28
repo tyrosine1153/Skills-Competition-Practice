@@ -5,7 +5,8 @@ namespace UI
 {
     public class MainCanvas : MonoBehaviour
     {
-        public Button startButton;
+        public Button newGameButton;
+        public Button continueButton;
         public Button quitButton;
         public Button helpButton;
         
@@ -18,10 +19,18 @@ namespace UI
         
         private void Start()
         {
-            startButton.onClick.AddListener(() =>
+            continueButton.interactable = GameManager.Instance.LoadData() > 0;
+
+            newGameButton.onClick.AddListener(() =>
             {
                 AudioManager.Instance.PlaySfx(SfxClip.ButtonClick);
                 GameManager.Instance.SaveData(0);
+                SceneManagerEx.Instance.LoadScene(SceneType.InGame);
+            });
+            continueButton.onClick.AddListener(() =>
+            {
+                AudioManager.Instance.PlaySfx(SfxClip.ButtonClick);
+                GameManager.Instance.LoadData();
                 SceneManagerEx.Instance.LoadScene(SceneType.InGame);
             });
             quitButton.onClick.AddListener(() =>
@@ -57,9 +66,10 @@ namespace UI
         {
             helpPrevButton.gameObject.SetActive(index > 0);
             helpNextButton.gameObject.SetActive(index < helpPages.Length - 1);
-            foreach (var helpPage in helpPages) helpPage.SetActive(false);
-            
-            helpPages[index].SetActive(true);
+            for (int i = 0; i < helpPages.Length; i++)
+            {
+                helpPages[i].SetActive(i == index);
+            }
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +17,7 @@ namespace UI
             restartButton.onClick.AddListener(() =>
             {
                 AudioManager.Instance.PlaySfx(SfxClip.ButtonClick);
+                GameManager.Instance.SaveData(0);
                 SceneManagerEx.Instance.LoadScene(SceneType.InGame);
             });
 
@@ -39,9 +39,9 @@ namespace UI
                 Destroy(cell);
             }
 
-            foreach (var rank in rankList)
+            for (int i = 0; i < rankList.Count; i++)
             {
-                Instantiate(rankCellPrefab, cellContainer).Set(rank.playerName, rank.score);
+                Instantiate(rankCellPrefab, cellContainer).Set(i + 1, rankList[i].playerName, rankList[i].score);
             }
         }
     }

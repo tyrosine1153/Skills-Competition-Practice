@@ -2,7 +2,6 @@ using UnityEngine.SceneManagement;
 
 public enum SceneType
 {
-    // Define SceneType
     Main,
     InGame,
     End,

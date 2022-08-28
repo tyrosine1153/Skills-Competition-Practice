@@ -38,11 +38,11 @@ public class GameManager : Singleton<GameManager>
 
     private static readonly StageModel[] StageModels =
     {
-        new (0, 5, 5),
-        new (1, 5, 5),
-        new (2, 5, 5),
-        new (3, 5, 5),
-        new (4, 5, 5),
+        new (0, 6, 5),
+        new (1, 6, 6),
+        new (2, 6, 7),
+        new (3, 6, 8),
+        new (4, 6, 9),
     };
     // Todo : Define stage list
 
@@ -107,8 +107,15 @@ public class GameManager : Singleton<GameManager>
 
         if (isGameClear)
         {
-            SaveData(savedStageId + 1);
-            SceneManagerEx.Instance.LoadScene(savedStageId < 5 ? SceneType.InGame : SceneType.End);
+            if (savedStageId < 5)
+            {
+                SaveData(savedStageId + 1);
+                SceneManagerEx.Instance.LoadScene(SceneType.InGame);
+            }
+            else
+            {
+                SceneManagerEx.Instance.LoadScene(SceneType.End);
+            }
         }
         else
         {

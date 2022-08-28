@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UI;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Stage : Singleton<Stage>
 {
@@ -21,8 +20,11 @@ public class Stage : Singleton<Stage>
     }
     private IEnumerator CoTimer()
     {
-        yield return null;
-        Timer += Time.deltaTime;
+        while (true)
+        {
+            yield return null;
+            Timer += Time.deltaTime;
+        }
     }
     
     private int _hp;
@@ -68,60 +70,13 @@ public class Stage : Singleton<Stage>
     public void CountInputKey(KeyCode key)
     {
         inputCounts[key]--;
-        InGameCanvas.Instance.SetInputCount(key, inputCounts[key]);
+        InGameCanvas.Instance.SetInputCount(LimitedInputs.IndexOf(key), inputCounts[key]);
         if (LimitedInputs.All(keyCode => inputCounts[keyCode] <= 0))
         {
             GameManager.Instance.GameOver();
         }
     }
 
-    #endregion
-
-    #region Spawn Managing
-    //
-    // [SerializeField] private Transform[] spawnPosition;
-    //
-    // private Vector2 RandomSidePosition => spawnPosition[Random.Range(1, spawnPosition.Length)].position;
-    //
-    // private readonly Queue<Coroutine> _coroutines = new Queue<Coroutine>();
-    //
-    // public GameObject Spawn(PrefabType prefabType)
-    // {
-    //     var go = PoolManager.Instance.CreateGameObject(prefabType);
-    //     go.transform.position = RandomSidePosition;
-    //
-    //     return go;
-    // }
-    //
-    // private IEnumerator CoSpawn(PrefabType prefabType)
-    // {
-    //     var data = GameManager.Instance.currentStageData.enemyConfigs.First(e => e.prefabType == prefabType);
-    //
-    //     yield return new WaitForSeconds(data.spawnStartTime);
-    //     while (true)
-    //     {
-    //         Spawn(prefabType);
-    //         yield return new WaitForSeconds(data.spawnDelayTime);
-    //     }
-    // }
-    //
-    // private void StartSpawn()
-    // {
-    //     var prefabs = GameManager.Instance.currentStageData.enemyConfigs.Select(e => e.prefabType);
-    //     foreach (var prefab in prefabs)
-    //     {
-    //         _coroutines.Enqueue(StartCoroutine(CoSpawn(prefab)));
-    //     }
-    // }
-    //
-    // private void StopSpawn()
-    // {
-    //     while (_coroutines.Count > 0)
-    //     {
-    //         StopCoroutine(_coroutines.Dequeue());
-    //     }
-    // }
-    //
     #endregion
 
     #region Stage Flow
@@ -133,7 +88,8 @@ public class Stage : Singleton<Stage>
     {
         hpMax = stageData.hp;
         Hp = hpMax;
-        
+
+        InGameCanvas.Instance.StageId = stageData.stageId + 1;
         InitInputCounts(stageData.inputCount);
         Instantiate(Resources.Load<GameObject>(string.Format(MapPrefabPathFormat, stageData.stageId)), transform);
 
@@ -145,13 +101,11 @@ public class Stage : Singleton<Stage>
 
     public void StartStage()
     {
-        // StartSpawn();
         _coTimer = StartCoroutine(CoTimer());
     }
 
     public void EndStage()
     {
-        // StopSpawn();
         StopCoroutine(_coTimer);
     }
     #endregion
