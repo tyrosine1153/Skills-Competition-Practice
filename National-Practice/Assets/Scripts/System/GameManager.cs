@@ -4,20 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [Serializable]
 public class StageModel
 {
-    // [Serializable]
-    // public class EnemyConfig
-    // {
-    //     public PrefabType prefabType;
-    //     public float spawnStartTime;
-    //     public float spawnDelayTime;
-    // }
-    // public EnemyConfig[] enemyConfigs;
-
     public int stageId;
     public int hp;
     public int inputCount;
@@ -119,6 +109,7 @@ public class GameManager : Singleton<GameManager>
             else
             {
                 SceneManagerEx.Instance.LoadScene(SceneType.End);
+                // Todo : End 화면에서 게임 결과에 따라 UI가 나타날 수 있도록 값을 전달해야 함
             }
         }
         else

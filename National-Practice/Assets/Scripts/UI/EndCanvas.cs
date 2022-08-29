@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,7 +56,7 @@ namespace UI
             var cellList = cellContainer.GetComponentsInChildren<RankCell>();
             foreach (var cell in cellList)
             {
-                Destroy(cell);
+                Destroy(cell.gameObject);
             }
 
             for (int i = 0; i < rankList.Count; i++)
