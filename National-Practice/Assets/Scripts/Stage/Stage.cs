@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,6 +78,29 @@ public class Stage : Singleton<Stage>
         }
     }
 
+    private SavePoint[] _stageSavePoints;
+    private int _currentSavePointIndex;
+
+    public void SetSavePoint(int index)
+    {
+        _currentSavePointIndex = index;
+    }
+    
+    public void RollBack()
+    {
+        Hp--;
+        MoveToSavePoints(_currentSavePointIndex);
+    }
+
+    private void MoveToSavePoints(int index)
+    {
+        _currentSavePointIndex = index;
+        
+        var player = FindObjectOfType<Player>();
+        var stageStartPoint = _stageSavePoints.First(point => point.id == _currentSavePointIndex);
+        player.transform.position = stageStartPoint.transform.position;
+    }
+
     #endregion
 
     #region Stage Flow
@@ -93,10 +117,8 @@ public class Stage : Singleton<Stage>
         InitInputCounts(stageData.inputCount);
         Instantiate(Resources.Load<GameObject>(string.Format(MapPrefabPathFormat, stageData.stageId)), transform);
 
-        var player = FindObjectOfType<Player>();
-        var stageStartPoint = FindObjectOfType<StageStartPoint>();
-        player.transform.position = stageStartPoint.transform.position;
-        // Todo : 플레이어 관련 값 초기화, 이외에도 맵 이외에 Stage Scene 에서 휘발되지 않는 객체 값 초기화
+        _stageSavePoints = FindObjectsOfType<SavePoint>();
+        MoveToSavePoints(0);
     }
 
     public void StartStage()
