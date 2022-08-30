@@ -19,18 +19,18 @@ namespace UI
         
         private void Start()
         {
-            continueButton.interactable = GameManager.Instance.LoadData() > 0;
+            continueButton.interactable = GameManager.Instance.LoadStageData() > 0;
 
             newGameButton.onClick.AddListener(() =>
             {
                 AudioManager.Instance.PlaySfx(SfxClip.ButtonClick);
-                GameManager.Instance.SaveData(0);
+                GameManager.Instance.SaveStageData(0);
                 SceneManagerEx.Instance.LoadScene(SceneType.InGame);
             });
             continueButton.onClick.AddListener(() =>
             {
                 AudioManager.Instance.PlaySfx(SfxClip.ButtonClick);
-                GameManager.Instance.LoadData();
+                GameManager.Instance.LoadStageData();
                 SceneManagerEx.Instance.LoadScene(SceneType.InGame);
             });
             quitButton.onClick.AddListener(() =>

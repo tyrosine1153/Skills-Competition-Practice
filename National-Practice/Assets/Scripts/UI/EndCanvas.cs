@@ -22,7 +22,7 @@ namespace UI
             restartButton.onClick.AddListener(() =>
             {
                 AudioManager.Instance.PlaySfx(SfxClip.ButtonClick);
-                GameManager.Instance.SaveData(0);
+                GameManager.Instance.SaveStageData(0);
                 SceneManagerEx.Instance.LoadScene(SceneType.InGame);
             });
 
@@ -51,7 +51,7 @@ namespace UI
 
         public void UpdateScoreRankBoard()
         {
-            var rankList = GameManager.Instance.scoreRanking;
+            var rankList = GameManager.Instance.scoreRanking.value;
 
             var cellList = cellContainer.GetComponentsInChildren<RankCell>();
             foreach (var cell in cellList)

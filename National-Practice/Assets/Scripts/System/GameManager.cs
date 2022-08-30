@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UI;
 using UnityEngine;
@@ -20,6 +21,12 @@ public class StageModel
     }
 }
 
+[Serializable]
+public class ScoreRanking
+{
+    public List<(string playerName, int score)> value;
+}
+
 public class GameManager : Singleton<GameManager>
 {
     public StageModel currentStageData;
@@ -37,7 +44,7 @@ public class GameManager : Singleton<GameManager>
     };
     // Todo : Define stage list
     
-    public List<(string playerName, int score)> scoreRanking = new ();
+    public ScoreRanking scoreRanking = new ();
     // Todo : Score 값 관리
 
     #region Game Flow
@@ -103,7 +110,7 @@ public class GameManager : Singleton<GameManager>
         {
             if (savedStageId < 5)
             {
-                SaveData(savedStageId + 1);
+                SaveStageData(savedStageId + 1);
                 SceneManagerEx.Instance.LoadScene(SceneType.InGame);
             }
             else
@@ -114,7 +121,7 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            SaveData(0);
+            SaveStageData(0);
             SceneManagerEx.Instance.LoadScene(SceneType.End);
             // Todo : End 화면에서 게임 결과에 따라 UI가 나타날 수 있도록 값을 전달해야 함
         }
@@ -128,19 +135,19 @@ public class GameManager : Singleton<GameManager>
     [ContextMenu("GameStart")]
     public void TestGameStartFromZero()
     {
-        SaveData(0);
+        SaveStageData(0);
         GameStart();
     }
 
     #region Data Managing
     
-    public void SaveData(int stageId)
+    public void SaveStageData(int stageId)
     {
         savedStageId = stageId;
         PlayerPrefs.SetInt(SavedStageIdKey, savedStageId);
     }
 
-    public int LoadData()
+    public int LoadStageData()
     {
         savedStageId = PlayerPrefs.GetInt(SavedStageIdKey, 0);
         return savedStageId;
@@ -148,14 +155,25 @@ public class GameManager : Singleton<GameManager>
 
     public void UpdateScoreRank(string playerName, int score)
     {
-        // Todo : 저장해 두었던 점수 랭킹 가져와서 갱신하고 저장 + Json 입출력 기능 넣기
-        scoreRanking.Add((playerName, score));
-        scoreRanking.Sort((rank1, rank2) => rank1.score.CompareTo(rank2.score));
+        scoreRanking = LoadByJson<ScoreRanking>("Data", "ScoreRanking");
+        scoreRanking.value.Add((playerName, score));
+        scoreRanking.value = scoreRanking.value.OrderByDescending(rank => rank.score).Take(3).ToList();
+        SaveByJson("Data", "ScoreRanking", scoreRanking);
         
         if (EndCanvas.IsInitialized)
         {
             EndCanvas.Instance.UpdateScoreRankBoard();
         }
+    }
+    
+    private static void SaveByJson<T>(string filePath, string fileName, T obj)
+    {
+        File.WriteAllText($"{filePath}/{fileName}.json", JsonUtility.ToJson(obj, true));
+    }
+    
+    private static T LoadByJson<T>(string filePath, string fileName)
+    {
+        return JsonUtility.FromJson<T>(File.ReadAllText($"{filePath}/{fileName}.json"));
     }
 
     #endregion
