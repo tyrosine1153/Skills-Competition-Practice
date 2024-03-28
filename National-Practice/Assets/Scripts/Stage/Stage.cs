@@ -96,9 +96,9 @@ public class Stage : Singleton<Stage>
     {
         _currentSavePointIndex = index;
         
-        var player = FindObjectOfType<Player>();
-        var stageStartPoint = _stageSavePoints.First(point => point.id == _currentSavePointIndex);
-        player.transform.position = stageStartPoint.transform.position;
+        // var player = FindObjectOfType<Player>();
+        // var stageStartPoint = _stageSavePoints.First(point => point.id == _currentSavePointIndex);
+        // player.transform.position = stageStartPoint.transform.position;
     }
 
     #endregion

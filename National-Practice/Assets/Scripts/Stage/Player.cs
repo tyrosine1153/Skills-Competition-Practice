@@ -17,32 +17,29 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey(KeyCode.RightArrow) && Stage.Instance.CanInputKey(KeyCode.RightArrow))
+        {
+            _rigidbody.AddForce(Vector3.right * moveSpeed);
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow) && Stage.Instance.CanInputKey(KeyCode.LeftArrow))
+        {
+            _rigidbody.AddForce(Vector3.left * moveSpeed);
+        }
+
+        _isWall = Physics.Raycast(transform.position, Vector3.right, 0.2f);
+        _rigidbody.useGravity = !_isWall;
         if (!_isWall)
         {
-            if (Input.GetKey(KeyCode.RightArrow) && Stage.Instance.CanInputKey(KeyCode.RightArrow))
-            {
-                transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow) && Stage.Instance.CanInputKey(KeyCode.LeftArrow))
-            {
-                transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space) && Stage.Instance.CanInputKey(KeyCode.Space) && !_isJumping)
-            {
-                _isJumping = true;
-                _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            }
         }
         else
         {
             _rigidbody.velocity = Vector3.zero;
-            if (Input.GetKeyDown(KeyCode.Space) && Stage.Instance.CanInputKey(KeyCode.Space) && !_isJumping)
-            {
-                _rigidbody.useGravity = true;
-                _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && Stage.Instance.CanInputKey(KeyCode.Space) && !_isJumping)
+        {
+            _isJumping = true;
+            _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
         
         foreach (var key in Stage.LimitedInputs)

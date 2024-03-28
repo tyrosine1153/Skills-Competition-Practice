@@ -36,7 +36,7 @@ public class GameManager : Singleton<GameManager>
 
     private static readonly StageModel[] StageModels =
     {
-        new (0, 6, 5),
+        new (0, 6, 100),
         new (1, 6, 6),
         new (2, 6, 7),
         new (3, 6, 8),
@@ -173,7 +173,13 @@ public class GameManager : Singleton<GameManager>
     
     private static T LoadByJson<T>(string filePath, string fileName)
     {
-        return JsonUtility.FromJson<T>(File.ReadAllText($"{filePath}/{fileName}.json"));
+        var path = $"{Application.dataPath}/{filePath}/{fileName}.json";
+        if (File.Exists(path))
+        {
+            return JsonUtility.FromJson<T>(File.ReadAllText(path));
+        }
+
+        return default;
     }
 
     #endregion
